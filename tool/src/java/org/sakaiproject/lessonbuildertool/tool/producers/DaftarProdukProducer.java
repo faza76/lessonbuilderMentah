@@ -12,6 +12,8 @@ import uk.org.ponder.rsf.components.UIContainer;
 import uk.org.ponder.rsf.components.UIELBinding;
 import uk.org.ponder.rsf.components.UIForm;
 import uk.org.ponder.rsf.components.UIInput;
+import uk.org.ponder.rsf.components.UIInternalLink;
+import uk.org.ponder.rsf.components.UILink;
 import uk.org.ponder.rsf.components.UIOutput;
 import uk.org.ponder.rsf.components.decorators.UIFreeAttributeDecorator;
 import uk.org.ponder.rsf.components.decorators.UITooltipDecorator;
@@ -25,7 +27,6 @@ import uk.org.ponder.rsf.viewstate.ViewParameters;
 import uk.org.ponder.rsf.viewstate.ViewParamsReporter;
 import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.lessonbuildertool.SimplePage;
-import org.sakaiproject.lessonbuildertool.SimplePageExample;
 import org.sakaiproject.lessonbuildertool.SimplePageProduk;
 import org.sakaiproject.lessonbuildertool.SimplePageImpl;
 import org.sakaiproject.lessonbuildertool.SimplePageItem;
@@ -41,7 +42,7 @@ import org.sakaiproject.tool.cover.SessionManager;
  * @author Eric Jeney <jeney@rutgers.edu>
  */
 @Slf4j
-public class ExampleProducer implements ViewComponentProducer, NavigationCaseReporter, ViewParamsReporter {
+public class DaftarProdukProducer implements ViewComponentProducer, NavigationCaseReporter, ViewParamsReporter {
 	private SimplePageBean simplePageBean;
 	private ShowPageProducer showPageProducer;
 	private SimplePageToolDao simplePageToolDao;
@@ -73,22 +74,6 @@ public class ExampleProducer implements ViewComponentProducer, NavigationCaseRep
         UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().
         	getLanguage())).decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));  
 
-        	// UIForm form = UIForm.make(tofill, "add-example");
-        	// UIInput.make(form, "example_name", "#{simplePageBean.nameE}");
-        	// UIInput.make(form, "example_text", "#{simplePageBean.textE}");
-        	// UICommand.make(form, "submit", "#{simplePageBean.processActionSubmit}");
-
-        	// List<SimplePageExample> listExample;
-        	// listExample = simplePageToolDao.getAllExample();
-
-        	// for (SimplePageExample item : listExample){
-         //    //Create a new <li> element
-	        //     UIBranchContainer row = UIBranchContainer.make(tofill, "list-example:");
-	        //     UIOutput.make(row, "name_example", item.getName());
-	        //     UIOutput.make(row, "text_example", item.getText());
-        	// }
-
-        	//quiz-label
         	UIOutput.make(tofill, "daftar-produk", "Daftar Produk");
         	UIBranchContainer row_label = UIBranchContainer.make(tofill, "produk-label:");
 	            UIOutput.make(row_label, "kode_produk_label", "Kode Produk");
@@ -97,23 +82,32 @@ public class ExampleProducer implements ViewComponentProducer, NavigationCaseRep
 	            UIOutput.make(row_label, "harga_label", "Harga");
 				UIOutput.make(row_label, "stok_label", "Stok");
 				UIOutput.make(row_label, "kode_jenis_produk_label", "Jenis Produk");
-
+				UIOutput.make(row_label, "label_action", "Action");
         	List<SimplePageProduk> listProduk;
         	listProduk = simplePageToolDao.getAllProduk();
 
         	for (SimplePageProduk item : listProduk){
             //Create a new <li> element
 	            UIBranchContainer row = UIBranchContainer.make(tofill, "produk-row:");
-	            UIOutput.make(row, "kode_produk", Integer.toString(item.getKode_Produk()));
-	            UIOutput.make(row, "nama_produk", item.getNama_Produk());
+	            UIOutput.make(row, "kode_produk", Integer.toString(item.getKodeProduk()));
+	            UIOutput.make(row, "nama_produk", item.getNamaProduk());
 	            UIOutput.make(row, "harga", Integer.toString(item.getHarga()));
 	            UIOutput.make(row, "deskripsi", item.getDeskripsi());
 				UIOutput.make(row, "stok", Integer.toString(item.getStok()));
-				UIOutput.make(row, "kode_jenis_produk", Integer.toString(item.KodeJenisProduk()));
+				UIOutput.make(row, "kode_jenis_produk", Integer.toString(item.getKodeJenisProduk()));
+				
+				GeneralViewParameters Historyparams = (GeneralViewParameters) viewparams;
+	     		Historyparams.setProdukId(item.getKodeProduk());
+	     		createStandardLink(DaftarProdukProducer.VIEW_ID,row,"delete_id","Delete",Historyparams);
         	}
 
         	UIForm form = UIForm.make(tofill, "tambah-produk");
         	UICommand.make(form, "submit", "Tambah Produk","#{simplePageBean.addProduk}");
+	}
+	
+	private void createStandardLink(String viewID, UIContainer tofill, String ID, String message, SimpleViewParameters params) {
+		params.viewID = viewID;
+		UILink link = UIInternalLink.make(tofill, ID, message , params);
 	}
 
 	public void setShowPageProducer(ShowPageProducer showPageProducer) {
@@ -136,7 +130,7 @@ public class ExampleProducer implements ViewComponentProducer, NavigationCaseRep
 		List<NavigationCase> togo = new ArrayList<NavigationCase>();
 		togo.add(new NavigationCase(null, new SimpleViewParameters(ShowPageProducer.VIEW_ID)));
 		togo.add(new NavigationCase("success", new SimpleViewParameters(ShowPageProducer.VIEW_ID)));
-		togo.add(new NavigationCase("tambah-produk", new SimpleViewParameters(ProdukProducer.VIEW_ID)));
+		//togo.add(new NavigationCase("tambah-produk", new SimpleViewParameters(ProdukProducer.VIEW_ID)));
 		togo.add(new NavigationCase("failure", new SimpleViewParameters(ShowPageProducer.VIEW_ID)));
 
 		return togo;
