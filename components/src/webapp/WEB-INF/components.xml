@@ -21,6 +21,7 @@
 		<value>org/sakaiproject/lessonbuildertool/simplepagepeerevalresult.hbm.xml</value>
 		<value>org/sakaiproject/lessonbuildertool/simplepageproperty.hbm.xml</value>
 		<value>org/sakaiproject/lessonbuildertool/checklistitemstatus.hbm.xml</value>
+    <value>org/sakaiproject/lessonbuildertool/penjualan.hbm.xml</value>
       </list>
     </property>
   </bean>
