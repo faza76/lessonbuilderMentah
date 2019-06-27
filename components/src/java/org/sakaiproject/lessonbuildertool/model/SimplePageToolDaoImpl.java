@@ -91,6 +91,12 @@ import org.sakaiproject.lessonbuildertool.SimplePageQuestionResponseTotals;
 import org.sakaiproject.lessonbuildertool.SimplePageQuestionResponseTotalsImpl;
 import org.sakaiproject.lessonbuildertool.SimpleStudentPage;
 import org.sakaiproject.lessonbuildertool.SimpleStudentPageImpl;
+//penjualan
+import org.sakaiproject.lessonbuildertool.SimplePageProduk;
+import org.sakaiproject.lessonbuildertool.SimplePageProdukImpl;
+import org.sakaiproject.lessonbuildertool.Penjualan;
+import org.sakaiproject.lessonbuildertool.PenjualanImpl;
+//
 import org.sakaiproject.lessonbuildertool.api.LessonBuilderConstants;
 import org.sakaiproject.lessonbuildertool.api.LessonBuilderEvents;
 import org.sakaiproject.lessonbuildertool.util.LessonsSubNavBuilder;
@@ -1950,4 +1956,26 @@ public class SimplePageToolDaoImpl extends HibernateDaoSupport implements Simple
 
         }).filter(spi -> spi != null).collect(Collectors.toList());
     }
+
+    public List<SimplePageProduk> getAllProduk(){
+		DetachedCriteria d = DetachedCriteria.forClass(SimplePageProduk.class);
+		List<SimplePageProduk> l = (List<SimplePageProduk>) getHibernateTemplate().findByCriteria(d);
+
+		if(l != null && l.size() > 0){
+			return l;
+		} else{
+			return null;
+		}
+	}
+
+	public List<Penjualan> getAllPenjualan(){
+		DetachedCriteria d = DetachedCriteria.forClass(Penjualan.class);
+		List<Penjualan> l = (List<SimplePageProduk>) getHibernateTemplate().findByCriteria(d);
+
+		if(l != null && l.size() > 0){
+			return l;
+		} else{
+			return null;
+		}
+	}
 }
