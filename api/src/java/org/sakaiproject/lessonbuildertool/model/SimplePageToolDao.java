@@ -339,4 +339,8 @@ public interface SimplePageToolDao {
     public List<ToolConfiguration> getSiteTools(String siteId);
 
     public List<SimplePageItem> getOrderedTopLevelPageItems(String siteId);
+
+    //modifikasi penjualan
+    public List<SimplePageProduk> getAllProduk();
+    public List<Penjualan> getAllPenjualan();
 }
