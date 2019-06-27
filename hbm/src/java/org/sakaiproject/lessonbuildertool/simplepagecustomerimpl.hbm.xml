@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.sakaiproject.lessonbuildertool">
+
+   <class name="org.sakaiproject.lessonbuildertool.SimplePageCustomerImpl" table="lesson_customer">
+
+       <cache usage="nonstrict-read-write" />
+
+      <!-- create the primary key id, using native is typically the best way -->
+	<id name="idCustomer" type="string"></id>
+	<property name="namaCustomer" type="string" length="50" not-null="true" />
+   </class>
+</hibernate-mapping>
