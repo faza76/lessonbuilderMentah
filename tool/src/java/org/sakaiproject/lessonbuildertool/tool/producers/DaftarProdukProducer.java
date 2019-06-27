@@ -70,6 +70,11 @@ public class DaftarProdukProducer implements ViewComponentProducer, NavigationCa
 				return;
 			}
 		}
+		
+		if(gparams.getProdukId() != 0) {
+			simplePageToolDao.deleteProduk(gparams.getProdukId());
+		}
+		
 
         UIOutput.make(tofill, "html").decorate(new UIFreeAttributeDecorator("lang", localeGetter.get().
         	getLanguage())).decorate(new UIFreeAttributeDecorator("xml:lang", localeGetter.get().getLanguage()));  
@@ -130,7 +135,7 @@ public class DaftarProdukProducer implements ViewComponentProducer, NavigationCa
 		List<NavigationCase> togo = new ArrayList<NavigationCase>();
 		togo.add(new NavigationCase(null, new SimpleViewParameters(ShowPageProducer.VIEW_ID)));
 		togo.add(new NavigationCase("success", new SimpleViewParameters(ShowPageProducer.VIEW_ID)));
-		//togo.add(new NavigationCase("tambah-produk", new SimpleViewParameters(ProdukProducer.VIEW_ID)));
+		togo.add(new NavigationCase("tambah-produk", new SimpleViewParameters(ProdukProducer.VIEW_ID)));
 		togo.add(new NavigationCase("failure", new SimpleViewParameters(ShowPageProducer.VIEW_ID)));
 
 		return togo;
