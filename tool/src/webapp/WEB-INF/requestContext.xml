@@ -80,6 +80,16 @@
 		<property name="localeGetter" ref="requestLocaleProxy" />
 	</bean>
 
+	<bean class="org.sakaiproject.lessonbuildertool.tool.producers.DaftarProdukProducer" >
+		<property name="messageLocator" ref="messageLocator"/>
+		<property name="simplePageBean" ref="simplePageBean" />
+		<property name="simplePageToolDao">
+			<ref bean="org.sakaiproject.lessonbuildertool.model.SimplePageToolDao" />
+		</property>
+		<property name="showPageProducer" ref="showPageProducer" />
+		<property name="localeGetter" ref="requestLocaleProxy" />
+	</bean>
+
 	<bean class="org.sakaiproject.lessonbuildertool.tool.producers.AssignmentPickerProducer" >
 		<property name="messageLocator" ref="messageLocator"/>
 		<property name="simplePageBean" ref="simplePageBean" />
